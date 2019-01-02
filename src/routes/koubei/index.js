@@ -5,7 +5,14 @@ import { NavBar, Icon } from 'antd-mobile';
 
 
 class koubei extends React.Component {
-
+  	componentDidMount(){
+  	  this.props.dispatch({
+  	    type:"app/updateState",
+  	    payload:{
+  	      hidden:false
+  	    }
+  	  })
+  	}
 	render(){
 		return(
 			<div>

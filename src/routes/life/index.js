@@ -11,8 +11,19 @@ const PlaceHolder = ({ className = '', ...restProps }) => (
   <div className={`${className} placeholder`} {...restProps}>Block</div>
 );
 
-const FlexExample = () => (
-  <div className='flex-container'  >
+
+class FlexExample extends  React.Component {
+  componentDidMount(){
+    this.props.dispatch({
+      type:"app/updateState",
+      payload:{
+        hidden:false
+      }
+    })
+  }
+  render(){
+    return(
+        <div className='flex-container'  >
     <div className="sub-title">Basic</div>
     <Flex>
       <Flex.Item><PlaceHolder /></Flex.Item>
@@ -83,7 +94,10 @@ const FlexExample = () => (
       <PlaceHolder className="inline" />
     </Flex>
   </div>
-);
+      )
+  }
+}
+
 
 
 
@@ -103,4 +117,4 @@ const FlexExample = () => (
 
 // export default Products;
 // export default connect()(Life);
-export default withRouter(connect()(FlexExample))
+export default withRouter(connect(({app})=>({app}))(FlexExample))

@@ -1,3 +1,4 @@
+
 import fetch from 'dva/fetch';
 
 function parseJSON(response) {
@@ -14,6 +15,14 @@ function checkStatus(response) {
   throw error;
 }
 
+function isLogin(data) {
+  if(!data.isLogin){
+    console.log("没登录")
+    window.location.href='/#/login'
+  }
+  return data;
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -25,6 +34,7 @@ export default function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
+    .then(isLogin)
     .then(data => ({ data }))
     .catch(err => ({ err }));
 }

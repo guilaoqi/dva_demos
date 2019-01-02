@@ -4,22 +4,46 @@ import { connect } from 'dva';
 import { Flex, List, InputItem, WhiteSpace,WingBlank,Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
 
-import style from './index.css'
+import style from './index.less'
 
 class login extends  React.Component {
-  ComponentDidMonut(){
 
+  componentDidMount(){
+
+    this.props.dispatch({
+      type:"app/updateState",
+      payload:{
+        hidden:true
+      }
+    })
   }
+
   handleClick = (inputValue) => {
+
     //把用户名和密码传进modal（login）里面
     this.props.dispatch({
       type:"login/updateState",
-      payload:inputValue
+      payload:{usermessage:inputValue}
     })
-    //
+    //登录（自己练习effect通过select方法从state里面拿值故意这么写，其实可以和上一步写成一步）
     this.props.dispatch({
       type:'login/post'
     })
+
+    // this.props.dispatch({
+    //   type:'app/updateState',
+    //   payload:{
+    //     isLogin:true
+    //   }
+    // })
+    // this.props.dispatch({
+    //         type:'login/goPage',
+    //         payload:{
+    //           type:'push',
+    //           pathname:'/'
+    //         }
+    // })
+
   }
   render(){
     const { getFieldProps,getFieldsValue } = this.props.form;
@@ -29,14 +53,14 @@ class login extends  React.Component {
     const myHeader= ()=>{
       return(
         <Flex>
-          <Flex.Item style={{textAlign:"center"}}>登录</Flex.Item>
+          <Flex.Item style={{textAlign:"center",fontSize:"25px"}}>东浦IOT</Flex.Item>
         </Flex>
         )
     }
     return(
 
-        <div style={{paddingTop:"200px"}}>
-          <List renderHeader={myHeader}>
+        <div className={style.myLogin} style={{height:"100%",paddingTop:"50%",background:"url('https://upload-images.jianshu.io/upload_images/2337041-f6d581547ddd5b09.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240')",backgroundSize:"cover"}}>
+          <List renderHeader={myHeader} className={style.InputItem}>
             <InputItem
                   {...getFieldProps('username')}
                   placeholder="请输入用户名"
@@ -77,6 +101,6 @@ const loginWrapper = createForm()(login);
 
 
 
-export default connect(({login})=>({login}))(loginWrapper)
+export default connect(({login,app})=>({login,app}))(loginWrapper)
 
 

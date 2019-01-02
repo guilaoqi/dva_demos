@@ -6,12 +6,14 @@ import './IndexPage.css'
 
 
 class TabBarDown extends React.Component {
+  
   componentDidMount(){
+
     this.props.dispatch({
       type:"app/updateState",
       payload:{
         selectedTab: 'LifeTab',
-        hidden: false,
+        hidden: true,
         fullScreen: true
       }
     })
@@ -19,6 +21,7 @@ class TabBarDown extends React.Component {
 
 
   render() {
+    
     const {children,app}=this.props
     return (
       <div style={app.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
